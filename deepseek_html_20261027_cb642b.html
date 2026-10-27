@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GearDLC - Знай больше. Побеждай.</title>
+    <!-- Подключаем шрифт Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- СБРОС СТИЛЕЙ --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d0f; /* Темный фон */
+            color: #ffffff;
+            line-height: 1.5;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Ссылки */
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        /* --- ШАПКА (NAVBAR) --- */
+        header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 1200px;
+            background: rgba(30, 30, 35, 0.7);
+            backdrop-filter: blur(15px); /* Эффект размытия */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 10px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            gap: 10px;
+        }
+
+        /* Стилизованная буква G (логотип) */
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #6b8afd; /* Синий цвет */
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 20px;
+            box-shadow: 0 0 15px rgba(107, 138, 253, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-switch {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            gap: 10px;
+            color: #888;
+        }
+        
+        .lang-switch span.active {
+            color: #fff;
+        }
+
+        .btn-login {
+            background: #6b8afd;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-login:hover {
+            background: #5573e0;
+        }
+
+        /* --- ГЛАВНЫЙ ЭКРАН (HERO) --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* ФОН: Сюда можно вставить url('ваша-картинка.jpg') */
+            background: radial-gradient(circle at center, #1a1a24 0%, #0d0d0f 70%);
+            position: relative;
+            padding-top: 80px;
+        }
+
+        /* Если есть картинка, раскомментируйте это и вставьте путь: */
+        /*
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('https://w.wallhaven.cc/full/wq/wallhaven-wq7o6x.jpg'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: -1;
+        }
+        */
+
+        .hero-logo-large {
+            font-size: 80px;
+            font-weight: 800;
+            color: rgba(107, 138, 253, 0.2); /* Прозрачная G на фоне */
+            margin-bottom: -30px;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+
+        .text-gradient {
+            color: #6b8afd;
+            background: linear-gradient(90deg, #6b8afd 0%, #9ab0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: #9ca3af;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-main {
+            background: #6b8afd;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(107, 138, 253, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            padding: 14px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        /* --- СЕКЦИЯ ТОВАРОВ --- */
+        .products {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .products h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .products > p {
+            color: #888;
+            margin-bottom: 50px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            border-radius: 20px;
+            padding: 30px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-purple {
+            background: linear-gradient(135deg, rgba(60, 30, 80, 0.8), rgba(20, 20, 25, 0.9));
+        }
+        
+        .card-blue {
+            background: linear-gradient(135deg, rgba(30, 40, 80, 0.8), rgba(20, 20, 25, 0.9));
+        }
+        
+        .card-green {
+            background: linear-gradient(135deg, rgba(30, 60, 40, 0.8), rgba(20, 20, 25, 0.9));
+        }
+
+        .card-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #6b8afd;
+        }
+
+        /* --- ПОДВАЛ (FOOTER) --- */
+        footer {
+            background: #090909;
+            padding: 60px 20px;
+            border-top: 1px solid #1a1a1a;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-col h4 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer-col ul li a:hover {
+            color: #6b8afd;
+        }
+
+        .copyright {
+            margin-top: 40px;
+            text-align: center;
+            color: #444;
+            font-size: 0.8rem;
+        }
+
+        /* Адаптив под мобилки */
+        @media (max-width: 768px) {
+            header {
+                width: 100%;
+                top: 0;
+                border-radius: 0;
+                padding: 15px;
+                background: #0d0d0f;
+            }
+            .nav-links { display: none; } /* Скрываем меню на телефоне */
+            h1 { font-size: 2.5rem; }
+            .hero-buttons { flex-direction: column; width: 100%; padding: 0 20px; }
+            .btn-main, .btn-secondary { width: 100%; justify-content: center; }
+            .footer-content { grid-template-columns: 1fr; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <header>
+        <div class="logo">
+            <div class="logo-icon">G</div>
+            GearDLC
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#">Тарифы</a>
+            <a href="#">Документация</a>
+            <a href="#">Поддержка</a>
+        </nav>
+
+        <div class="nav-right">
+            <div class="lang-switch">
+                <span class="active">RU</span>
+                <span>EN</span>
+                <span>UA</span>
+            </div>
+            <button class="btn-login">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Кабинет
+            </button>
+        </div>
+    </header>
+
+    <!-- ГЛАВНЫЙ ЭКРАН -->
+    <section class="hero">
+        <!-- Большой логотип на фоне -->
+        <div class="hero-logo-large">G</div>
+        
+        <h1>Знай больше.<br>Побеждай с <span class="text-gradient">GearDLC</span>.</h1>
+        <p>Поднимите свой игровой процесс на новый уровень. Контроль, скорость и точность — всё уже внутри.</p>
+        
+        <div class="hero-buttons">
+            <button class="btn-main">
+                Создать аккаунт
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+            <button class="btn-secondary">Документация</button>
+        </div>
+    </section>
+
+    <!-- СЕКЦИЯ ТОВАРОВ -->
+    <section class="products">
+        <h2>Товары</h2>
+        <p>Выберите план и получите мгновенный доступ ко всем функциям.</p>
+
+        <div class="cards-grid">
+            <!-- Карточка 1 -->
+            <div class="card card-purple">
+                <div>
+                    <div class="card-tag">Тариф 1.21.11</div>
+                    <h3>GearDLC 1.21.11</h3>
+                    <p>Вы получаете ранний доступ к новым модулям, обновлениям клиента и эксклюзивным функциям.</p>
+                </div>
+                <div class="price">0 ₽</div>
+            </div>
+
+            <!-- Карточка 2 -->
+            <div class="card card-blue">
+                <div>
+                    <div class="card-tag">Тариф 1.16.5</div>
+                    <h3>GearDLC 1.16.5</h3>
+                    <p>Вы получаете клиент абсолютно навсегда, так же все последующие обновления.</p>
+                </div>
+                <div class="price">0 ₽</div>
+            </div>
+
+            <!-- Карточка 3 -->
+            <div class="card card-green">
+                <div>
+                    <div class="card-tag">Разовая услуга</div>
+                    <h3>Сброс HWID</h3>
+                    <p>Сброс привязки (HWID) на вашем аккаунте клиента к железу.</p>
+                </div>
+                <div class="price">0 ₽</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 15px;">
+                    <div class="logo-icon" style="width: 24px; height: 24px; font-size: 14px;">G</div>
+                    GearDLC
+                </div>
+                <p style="color: #666; font-size: 0.9rem;">Клиент, который делает тебя непобедимым.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Платформа</h4>
+                <ul>
+                    <li><a href="#">Создать аккаунт</a></li>
+                    <li><a href="#">Войти в аккаунт</a></li>
+                    <li><a href="#">Аккаунт</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <ul>
+                    <li><a href="#">Активность игроков</a></li>
+                    <li><a href="#">Продукты</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Документы</h4>
+                <ul>
+                    <li><a href="#">Политика конфиденциальности</a></li>
+                    <li><a href="#">Условия пользования</a></li>
+                    <li><a href="#">Возврат средств</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2024 GearDLC. Все права защищены.
+        </div>
+    </footer>
+
+</body>
+</html>
